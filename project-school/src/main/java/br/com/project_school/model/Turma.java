@@ -8,7 +8,6 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
@@ -29,9 +28,6 @@ public class Turma implements Serializable{
 	
 	@OneToMany(mappedBy = "turma", fetch = FetchType.LAZY)
 	private List<Aluno> alunos;
-	
-	@ManyToMany(mappedBy = "turmas", fetch = FetchType.LAZY)
-	private List<Professor> professores;
 	
 	public Long getId() {
 		return id;
@@ -66,14 +62,6 @@ public class Turma implements Serializable{
 		this.alunos = alunos;
 	}
 	
-
-	public List<Professor> getProfessores() {
-		return professores;
-	}
-
-	public void setProfessores(List<Professor> professores) {
-		this.professores = professores;
-	}
 
 	@Override
 	public int hashCode() {
