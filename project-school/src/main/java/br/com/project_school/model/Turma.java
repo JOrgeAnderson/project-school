@@ -8,8 +8,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 
 @Entity
 public class Turma implements Serializable{
@@ -21,13 +21,15 @@ public class Turma implements Serializable{
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
-	private String nomeTurno;
+	private String Turma;
 	
 	@ManyToOne(fetch = FetchType.EAGER)
 	private Serie serie;
 	
-	@OneToMany(mappedBy = "turma", fetch = FetchType.LAZY)
-	private List<Aluno> alunos;
+	@ManyToMany(mappedBy = "turmas", fetch = FetchType.EAGER)
+	private List<Professor> professores;
+	
+	private String turno;
 	
 	public Long getId() {
 		return id;
@@ -37,13 +39,12 @@ public class Turma implements Serializable{
 		this.id = id;
 	}
 
-
-	public String getNomeTurno() {
-		return nomeTurno;
+	public String getTurma() {
+		return Turma;
 	}
 
-	public void setNomeTurno(String nomeTurno) {
-		this.nomeTurno = nomeTurno;
+	public void setTurma(String turma) {
+		Turma = turma;
 	}
 
 	public Serie getSerie() {
@@ -53,15 +54,22 @@ public class Turma implements Serializable{
 	public void setSerie(Serie serie) {
 		this.serie = serie;
 	}
-
-	public List<Aluno> getAlunos() {
-		return alunos;
-	}
-
-	public void setAlunos(List<Aluno> alunos) {
-		this.alunos = alunos;
-	}
 	
+	public List<Professor> getProfessores() {
+		return professores;
+	}
+
+	public void setProfessores(List<Professor> professores) {
+		this.professores = professores;
+	}
+
+	public String getTurno() {
+		return turno;
+	}
+
+	public void setTurno(String turno) {
+		this.turno = turno;
+	}
 
 	@Override
 	public int hashCode() {

@@ -1,12 +1,16 @@
 package br.com.project_school.model;
 
 import java.io.Serializable;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 
 @Entity
 public class Professor implements Serializable{
@@ -32,7 +36,9 @@ public class Professor implements Serializable{
 	@Column(nullable = false)
 	private String rg;
 	
-
+	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
+	private List<Turma> turmas;
+	
 	public Long getId() {
 		return id;
 	}
@@ -80,7 +86,14 @@ public class Professor implements Serializable{
 	public void setRg(String rg) {
 		this.rg = rg;
 	}
+	
+	public List<Turma> getTurmas() {
+		return turmas;
+	}
 
+	public void setTurmas(List<Turma> turmas) {
+		this.turmas = turmas;
+	}
 
 	@Override
 	public int hashCode() {

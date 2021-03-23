@@ -24,7 +24,8 @@ public class Serie implements Serializable{
 	@OneToMany(mappedBy = "serie", fetch = FetchType.EAGER)
 	private List<Turma> turmas;
 		
-	
+	@OneToMany(mappedBy = "serie")
+	private List<Aluno> alunos;
 	
 	public Long getId() {
 		return id;

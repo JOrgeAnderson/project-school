@@ -43,7 +43,7 @@ public class Aluno implements Serializable{
 	private String senha;
 
 	@ManyToOne(fetch = FetchType.EAGER)
-	private Turma turma;
+	private Serie serie;
 	
 	public Long getId() {
 		return id;
@@ -117,12 +117,12 @@ public class Aluno implements Serializable{
 		this.senha = senha;
 	}
 
-	public Turma getTurma() {
-		return turma;
+	public Serie getSerie() {
+		return serie;
 	}
 
-	public void setTurma(Turma turma) {
-		this.turma = turma;
+	public void setSerie(Serie serie) {
+		this.serie = serie;
 	}
 
 	@Override
