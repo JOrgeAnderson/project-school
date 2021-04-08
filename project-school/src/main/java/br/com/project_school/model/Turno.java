@@ -10,29 +10,21 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 
 @Entity
-public class Turma implements Serializable{
+public class Turno implements Serializable{
 
-	
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
-	private String Turma;
+	private String turno;
 	
-	@ManyToOne(fetch = FetchType.EAGER)
-	private Serie serie;
-	
-	@ManyToMany(mappedBy = "turmas", fetch = FetchType.EAGER)
-	private List<Professor> professores;
-	
-	@ManyToMany(cascade = CascadeType.REMOVE)
-	private List<Turno> turnos;
-	
+	@ManyToMany(mappedBy = "turnos", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
+	private List<Turma> turmas;
+
 	public Long getId() {
 		return id;
 	}
@@ -41,36 +33,20 @@ public class Turma implements Serializable{
 		this.id = id;
 	}
 
-	public String getTurma() {
-		return Turma;
+	public String getTurno() {
+		return turno;
 	}
 
-	public void setTurma(String turma) {
-		Turma = turma;
-	}
-
-	public Serie getSerie() {
-		return serie;
-	}
-
-	public void setSerie(Serie serie) {
-		this.serie = serie;
+	public void setTurno(String turno) {
+		this.turno = turno;
 	}
 	
-	public List<Professor> getProfessores() {
-		return professores;
+	public List<Turma> getTurmas() {
+		return turmas;
 	}
 
-	public void setProfessores(List<Professor> professores) {
-		this.professores = professores;
-	}
-
-	public List<Turno> getTurnos() {
-		return turnos;
-	}
-
-	public void setTurnos(List<Turno> turnos) {
-		this.turnos = turnos;
+	public void setTurmas(List<Turma> turmas) {
+		this.turmas = turmas;
 	}
 
 	@Override
@@ -89,7 +65,7 @@ public class Turma implements Serializable{
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Turma other = (Turma) obj;
+		Turno other = (Turno) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;
@@ -98,5 +74,4 @@ public class Turma implements Serializable{
 		return true;
 	}
 	
-
 }

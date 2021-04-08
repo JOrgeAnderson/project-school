@@ -7,6 +7,7 @@
 		<class>br.com.project_school.model.Administrador</class>
 		<class>br.com.project_school.model.Serie</class>
 		<class>br.com.project_school.model.Turma</class>
+		<class>br.com.project_school.model.Turno</class>
 	
 		<properties>
 			<!-- Configurando a conexao com o banco -->
