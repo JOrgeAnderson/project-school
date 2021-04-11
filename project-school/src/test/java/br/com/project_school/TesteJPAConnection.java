@@ -2,6 +2,7 @@ package br.com.project_school;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import org.junit.Test;
 
@@ -9,6 +10,7 @@ import br.com.project_school.connection.JPAConnection;
 import br.com.project_school.dao.DaoGeneric;
 import br.com.project_school.dao.DaoTurma;
 import br.com.project_school.model.Administrador;
+import br.com.project_school.model.Aluno;
 import br.com.project_school.model.Professor;
 import br.com.project_school.model.Serie;
 import br.com.project_school.model.Turma;
@@ -37,39 +39,45 @@ public class TesteJPAConnection {// Classe responsavel pelos testes de persisten
 
 	}
 
-	/* INSERINDO PROFESSOR NO BANCO DE DADOS */
-	@Test
-	public void insertProfessor() {
-		DaoGeneric<Professor> daoProfessor = new DaoGeneric<Professor>();
-
-		Professor professor = new Professor();
-
-		professor.setCpf("672.378.983-00");
-		professor.setEmail("EdivanGomes9902@email.com");
-		professor.setMatricula("SH1111");
-		professor.setNome("Edivan Gomes da Costa");
-		professor.setRg("2819283892");
-
-		daoProfessor.insertEntity(professor);
-	}
 
 	/* INSERINDO SERIES NO BANCO DE DADOS */
 	@Test
 	public void insertSerie() {
 		DaoGeneric<Serie> daoSerie = new DaoGeneric<Serie>();
+		
+		/*6° Ano Fundamental */
+		Serie serie6Ano = new Serie();
+		serie6Ano.setNome("6° Ano - Fundamental");
+		
+		/*7° Ano Fundamental */
+		Serie serie7Ano = new Serie();
+		serie7Ano.setNome("7° Ano - Fundamental");
+		
+		/*8° Ano Fundamental */
+		Serie serie8Ano = new Serie();
+		serie8Ano.setNome("8° Ano - Fundamental");
+		
+		/*9° Ano Fundamental */
+		Serie serie9Ano = new Serie();
+		serie9Ano.setNome("9° Ano - Fundamental");
 
-		Serie serie1 = new Serie();
-		serie1.setNome("1° Ano - Médio");
+		/*1° Ano Médio */
+		Serie serie1Medio = new Serie();
+		serie1Medio.setNome("1° Ano - Médio");
 
-		Serie serie2 = new Serie();
-		serie2.setNome("2° Ano - Médio");
+		/*2° Ano Médio */
+		Serie serie2Medio = new Serie();
+		serie2Medio.setNome("2° Ano - Médio");
 
-		Serie serie3 = new Serie();
-		serie3.setNome("3° Ano - Médio");
+		/*3° Ano Médio */
+		Serie serie3Medio = new Serie();
+		serie3Medio.setNome("3° Ano - Médio");
+		
 
-		daoSerie.insertEntity(serie1);
-		daoSerie.insertEntity(serie2);
-		daoSerie.insertEntity(serie3);
+		daoSerie.insertEntity(serie6Ano);
+		daoSerie.insertEntity(serie7Ano);
+		daoSerie.insertEntity(serie8Ano);
+		daoSerie.insertEntity(serie9Ano);
 	}
 
 	/* INSERINDO TURNOS NO BANCO DE DADOS */
@@ -152,7 +160,25 @@ public class TesteJPAConnection {// Classe responsavel pelos testes de persisten
 		turnos4.add(turnoManhaA4);
 		turmaA4.setTurnos(turnos4);
 
-		daoTurma.insertEntity(turmaA4);
+		/*----------------------------------------------------------*/
+		Serie serie6F = new Serie();
+		serie6F.setId(14L);
+
+		Turno turnoManha6F = new Turno();
+		turnoManha6F.setId(6L);
+		
+		Turma turmaManha6 = new Turma();
+		turmaManha6.setTurma("601-A");
+		turmaManha6.setSerie(serie6F);
+		
+		List<Turno> turnos6FM = new ArrayList<Turno>();
+		
+		turnos6FM.add(turnoManha6F);
+		turmaManha6.setTurnos(turnos6FM);
+
+		/*----------------------------------------------------------*/
+
+		daoTurma.insertEntity(turmaManha6);
 
 		/*----------------------------------------------------------*/
 
@@ -172,24 +198,6 @@ public class TesteJPAConnection {// Classe responsavel pelos testes de persisten
 
 	}
 	
-	@Test
-	public void updateTurma() {
-		DaoGeneric<Turma> daoGeneric = new DaoGeneric<Turma>();
-		DaoGeneric<Turno> daoTurno = new DaoGeneric<Turno>();
-		
-		Turma turma = daoGeneric.searchEntity(12L, Turma.class);
-		Turno turno = daoTurno.searchEntity(6L, Turno.class);
-		
-		
-		List<Turno> turnosEdit = new ArrayList<Turno>();
-		turnosEdit.add(turno);
-		
-		turma.setTurnos(turnosEdit);
-
-		
-		turma = daoGeneric.updateEnity(turma);
-		
-	}
 	
 	@Test
 	public void deleteTurma() throws Exception {
@@ -198,6 +206,7 @@ public class TesteJPAConnection {// Classe responsavel pelos testes de persisten
 		Turma turma = daoGeneric.searchEntity(12L, Turma.class);
 		
 		daoGeneric.deleteTurmaById(turma);
+		daoGeneric.deleteById(turma);
 		
 	}
 	
@@ -212,5 +221,101 @@ public class TesteJPAConnection {// Classe responsavel pelos testes de persisten
 			System.out.println("-------------------------");
 		}
 		
+	}	
+	
+	/* INSERINDO PROFESSOR NO BANCO DE DADOS */
+	@Test
+	public void insertProfessor() {
+		DaoGeneric<Professor> daoProfessor = new DaoGeneric<Professor>();
+		
+		Professor professor = new Professor();
+		
+		professor.setCpf("672.378.983-00");
+		professor.setEmail("EdivanGomes9902@email.com");
+		professor.setMatricula("SH1111");
+		professor.setNome("Edivan Gomes da Costa");
+		professor.setRg("2819283892");
+		
+		daoProfessor.insertEntity(professor);
 	}
+
+	@Test
+	public void updateTurma() {
+		DaoGeneric<Turma> daoGeneric = new DaoGeneric<Turma>();
+		DaoGeneric<Turno> daoTurno = new DaoGeneric<Turno>();
+		
+		Turma turma = daoGeneric.searchEntity(12L, Turma.class);
+		Turno turno = daoTurno.searchEntity(6L, Turno.class);
+		
+		
+		List<Turno> turnosEdit = new ArrayList<Turno>();
+		turnosEdit.add(turno);
+		
+		turma.setTurnos(turnosEdit);
+		
+		
+		turma = daoGeneric.updateEnity(turma);
+		
+	}
+	
+	@Test
+	public void updateProfessor() {
+		DaoGeneric<Professor> daoProfessor = new DaoGeneric<Professor>();
+		DaoGeneric<Turma> daoTurma = new DaoGeneric<Turma>();
+		
+		Professor professor = daoProfessor.searchEntity(2L, Professor.class);
+		Turma turma = daoTurma.searchEntity(9L, Turma.class);
+		
+		List<Turma> turmaEdit = new ArrayList<Turma>();
+		turmaEdit.add(turma);
+		
+		professor.setTurmas(turmaEdit);
+		
+		professor = daoProfessor.updateEnity(professor);
+		
+		
+		
+	}
+	
+	@Test
+	public void insertAluno() {
+		DaoGeneric<Aluno> daoAluno = new DaoGeneric<Aluno>();
+		DaoGeneric<Serie> daoSerie = new DaoGeneric<Serie>();
+		
+		Serie serie = daoSerie.searchEntity(5L, Serie.class);
+		Aluno aluno = new Aluno();
+		
+		Random n = new Random();
+		
+		int matricula = n.nextInt(100000);
+		
+		aluno.setNome("Jorge Anderson Lopes Ribeiro");
+		aluno.setRg("63728392-1");
+		aluno.setCpf("999.232.928.89");
+		aluno.setEmail("anderson.teste@email.com");
+		aluno.setMatricula(String.valueOf(matricula));
+		aluno.setNomeMae("Maria Rose");
+		aluno.setLogin("anderson.ribeiro");
+		aluno.setSenha("school123");
+		aluno.setSerie(serie);
+		
+		daoAluno.insertEntity(aluno);
+		
+	}
+	
+	@Test
+	public void updateAluno() {
+		DaoGeneric<Aluno> daoAluno = new DaoGeneric<Aluno>();
+		
+		Aluno aluno = daoAluno.searchEntity(19L, Aluno.class);
+		
+		Random n = new Random();
+		
+		int matricula = n.nextInt(100000);
+		
+		aluno.setMatricula("SC"+String.valueOf(matricula));
+		
+		aluno = daoAluno.updateEnity(aluno);
+	}
+	
 }

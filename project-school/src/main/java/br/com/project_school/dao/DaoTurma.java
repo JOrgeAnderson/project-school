@@ -23,6 +23,8 @@ public class DaoTurma<E> extends DaoGeneric<Turma>{
 				.createNativeQuery(
 						"delete from turma_turno " + " where turmas_id =" + id)
 				.executeUpdate(); // faz delete
+
+
 		transaction.commit();// grava alteração no banco
 		
 	}
